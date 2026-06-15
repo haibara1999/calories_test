@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>夏日室内专属计划</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#1FA07D; --teal-d:#0F6E56; --teal-l:#E1F5EE;
+  --coral:#E8714A; --coral-d:#B0461F; --coral-l:#FAECE7;
+  --amber:#F4A93B; --amber-d:#8A5A0B; --amber-l:#FBEFD9;
+  --indigo:#3A6EA5; --indigo-d:#264a72; --indigo-l:#E7EFF8;
+  --ink:#2B2A26; --ink-2:#6B6A63; --ink-3:#A09E94;
+  --card:#FFFFFF; --line:#ECE7DC;
+  --accent:var(--coral); --accent-d:var(--coral-d); --accent-l:var(--coral-l);
+  --radius:20px; --radius-sm:14px;
+  --shadow:0 8px 28px rgba(30,50,40,.07), 0 2px 8px rgba(30,50,40,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:"Noto Sans SC",-apple-system,system-ui,sans-serif;
+  color:var(--ink); line-height:1.7; -webkit-font-smoothing:antialiased;
+  background:
+    radial-gradient(1100px 460px at 82% -8%, #FDE5D6 0%, rgba(253,229,214,0) 60%),
+    radial-gradient(900px 420px at 6% 4%, #DDF1E8 0%, rgba(221,241,232,0) 58%),
+    linear-gradient(180deg,#FCF8F0 0%, #F7F4EC 100%);
+  background-attachment:fixed; min-height:100vh;
+}
+body.evening{
+  --accent:var(--indigo); --accent-d:var(--indigo-d); --accent-l:var(--indigo-l);
+  background:
+    radial-gradient(1000px 460px at 84% -6%, #DCE7F4 0%, rgba(220,231,244,0) 60%),
+    radial-gradient(900px 420px at 4% 2%, #DCEFE8 0%, rgba(220,239,232,0) 56%),
+    linear-gradient(180deg,#F6F6F1 0%, #EEF1F0 100%);
+}
+.wrap{max-width:920px;margin:0 auto;padding:30px 20px 64px}
+/* ---------- hero ---------- */
+.hero{text-align:center;padding:14px 8px 22px}
+.hero .badge{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line);
+  color:var(--accent-d);font-size:13px;font-weight:500;padding:6px 14px;border-radius:999px;box-shadow:var(--shadow)}
+.hero h1{font-family:"Baloo 2","Noto Sans SC",sans-serif;font-weight:700;letter-spacing:.5px;
+  font-size:clamp(30px,6vw,46px);margin:16px 0 6px;line-height:1.15}
+.hero .sub{font-size:clamp(15px,2.4vw,18px);color:var(--ink-2);font-weight:500;margin:0 0 16px}
+.hero .strat{max-width:640px;margin:0 auto;font-size:14px;color:var(--ink-2);
+  background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 18px}
+.hero .strat b{color:var(--ink)}
+/* ---------- controls ---------- */
+.controls{position:sticky;top:0;z-index:30;margin:18px 0 8px;padding:12px;
+  background:rgba(252,248,240,.82);backdrop-filter:blur(10px);border:1px solid var(--line);
+  border-radius:var(--radius);box-shadow:var(--shadow)}
+body.evening .controls{background:rgba(244,245,242,.85)}
+.ctl-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.seg{display:inline-flex;background:#F1EDE3;border-radius:999px;padding:5px;gap:4px}
+.seg button{border:0;background:transparent;cursor:pointer;font-family:inherit;font-size:15px;font-weight:500;
+  color:var(--ink-2);padding:9px 18px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;transition:.18s;white-space:nowrap}
+.seg button .ic{font-size:17px}
+.seg button.on{background:var(--card);color:var(--accent-d);box-shadow:0 2px 8px rgba(30,50,40,.12)}
+.spring{flex:1 1 auto}
+.jump{display:flex;align-items:center;gap:8px;color:var(--ink-2);font-size:13px}
+.jump select{font-family:inherit;font-size:14px;color:var(--ink);background:var(--card);border:1px solid var(--line);
+  border-radius:12px;padding:9px 12px;max-width:230px;cursor:pointer}
+.prog{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line)}
+.prog .lab{font-size:13px;color:var(--ink-2);white-space:nowrap}
+.prog .bar{flex:1 1 120px;height:9px;background:#EDE7DB;border-radius:999px;overflow:hidden;min-width:120px}
+.prog .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--amber));border-radius:999px;transition:width .35s}
+.prog .pct{font-size:13px;font-weight:700;color:var(--accent-d);white-space:nowrap}
+.btn-mini{border:1px solid var(--line);background:var(--card);color:var(--ink-2);font-family:inherit;font-size:12.5px;
+  padding:7px 12px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.btn-mini:hover{color:var(--accent-d);border-color:var(--accent)}
+/* ---------- group ---------- */
+.period{display:none}
+.period.show{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.grp{display:flex;align-items:center;gap:12px;margin:28px 4px 14px}
+.grp .n{flex:none;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 4px 10px rgba(0,0,0,.10)}
+.grp h2{font-size:18px;margin:0;font-weight:700}
+.grp .t{font-size:12.5px;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+/* ---------- card ---------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+  margin:14px 0;overflow:hidden;transition:.2s}
+.card.done{border-color:var(--teal)}
+.head{display:grid;grid-template-columns:64px 1fr auto;gap:14px;align-items:center;padding:14px 16px;cursor:pointer}
+.thumb{width:64px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 38%, #FFF7EA, #F3EAD8)}
+body.evening .thumb{background:radial-gradient(circle at 50% 38%, #EEF3FB, #E3EAF3)}
+.thumb svg{width:58px;height:48px}
+.head .title{min-width:0}
+.head .nm{font-size:16.5px;font-weight:700;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.head .en{font-size:11.5px;color:var(--ink-3);font-weight:400}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:12px;padding:3px 9px;border-radius:999px;font-weight:500}
+.tag.t-mus{background:var(--coral-l);color:var(--coral-d)}
+.tag.t-set{background:var(--teal-l);color:var(--teal-d)}
+.tag.t-rest{background:var(--amber-l);color:var(--amber-d)}
+.head .right{display:flex;align-items:center;gap:10px}
+.chk{position:relative;width:26px;height:26px;flex:none}
+.chk input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}
+.chk .box{position:absolute;inset:0;border:2px solid var(--line);border-radius:9px;display:flex;align-items:center;
+  justify-content:center;color:#fff;font-size:15px;transition:.15s}
+.chk input:checked + .box{background:var(--teal);border-color:var(--teal)}
+.chk .box .ic{opacity:0;transform:scale(.5);transition:.15s}
+.chk input:checked + .box .ic{opacity:1;transform:scale(1)}
+.chev{color:var(--ink-3);font-size:22px;transition:transform .25s;line-height:1}
+.card.open .chev{transform:rotate(180deg)}
+.body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.card.open .body{max-height:1600px}
+.body-in{padding:4px 18px 20px;border-top:1px dashed var(--line)}
+.detail{display:grid;grid-template-columns:240px 1fr;gap:22px;margin-top:16px;align-items:start}
+.fig{background:radial-gradient(circle at 50% 36%, #FFF7EA, #F1E7D4);border-radius:var(--radius-sm);
+  padding:8px;display:flex;align-items:center;justify-content:center}
+body.evening .fig{background:radial-gradient(circle at 50% 36%, #EDF3FB, #E1E9F3)}
+.fig svg{width:100%;height:auto;display:block}
+.steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:11px}
+.steps li{display:flex;gap:11px;align-items:flex-start}
+.steps .sn{flex:none;width:23px;height:23px;border-radius:50%;background:var(--teal-l);color:var(--teal-d);
+  font-size:12.5px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.steps li p{margin:0;font-size:14.5px}
+.steps li b{font-weight:700}
+.breath{display:flex;align-items:center;gap:9px;margin-top:14px;font-size:13.5px;color:var(--teal-d);
+  background:var(--teal-l);padding:9px 13px;border-radius:11px}
+.breath .ic{font-size:17px}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.note{border-radius:13px;padding:11px 14px}
+.note .h{font-size:13px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:4px}
+.note p{margin:0;font-size:13px;color:var(--ink-2);line-height:1.55}
+.note.warn{background:#FCEEE9}.note.warn .h{color:var(--coral-d)}
+.note.tip{background:var(--teal-l)}.note.tip .h{color:var(--teal-d)}
+.note .ic{font-size:16px}
+/* footer */
+.foot{text-align:center;color:var(--ink-3);font-size:12.5px;margin-top:40px;line-height:1.8}
+.foot .tide{font-size:20px;letter-spacing:6px;opacity:.6}
+/* responsive */
+@media(max-width:680px){
+  .detail{grid-template-columns:1fr;gap:14px}
+  .fig{max-width:280px;margin:0 auto}
+  .notes{grid-template-columns:1fr}
+  .head{grid-template-columns:54px 1fr auto;gap:11px;padding:12px}
+  .thumb{width:54px;height:54px}.thumb svg{width:48px;height:40px}
+  .jump{width:100%}.jump select{max-width:none;flex:1}
+  .seg{flex:1}.seg button{flex:1;justify-content:center;padding:10px 6px;font-size:14px}
+  .seg-sub{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <span class="badge"><span id="hero-emoji">🌴</span> 夏日室内维护计划</span>
+    <h1>夏日室内专属计划</h1>
+    <p class="sub">无深蹲 · 无俯卧撑 · 清爽维护</p>
+    <p class="strat"><b>核心策略：</b>规避夏日暴汗与紫外线，总强度精准下调 20–30%；用更温和的方式保护关节、打破神经适应、维持肌肉张力。</p>
+  </header>
+
+  <div class="controls">
+    <div class="ctl-row">
+      <div class="seg" role="tablist">
+        <button id="seg-m" class="on" onclick="setPeriod('morning')"><span class="ic">☀️</span>晨间<span class="seg-sub"> · 上肢与核心</span></button>
+        <button id="seg-e" onclick="setPeriod('evening')"><span class="ic">🌙</span>晚间<span class="seg-sub"> · 后侧链</span></button>
+      </div>
+      <span class="spring"></span>
+      <label class="jump">🔎 快速跳转
+        <select id="jump" onchange="jumpTo(this.value)"></select>
+      </label>
+    </div>
+    <div class="prog">
+      <span class="lab" id="prog-lab">今日打卡</span>
+      <div class="bar"><div class="fill" id="prog-fill"></div></div>
+      <span class="pct" id="prog-pct">0 / 0</span>
+      <button class="btn-mini" onclick="toggleAll()" id="btn-all">⊕ 全部展开</button>
+      <button class="btn-mini" onclick="resetDay()">↺ 重置打卡</button>
+    </div>
+  </div>
+
+  <section id="period-morning" class="period show"></section>
+  <section id="period-evening" class="period"></section>
+
+  <footer class="foot">
+    <div class="tide">～ ～ ～</div>
+    清爽维护 · 量力而行 · 关节无不适为度<br>训练数据仅保存在本机浏览器
+  </footer>
+</div>
+
+<script>
+/* ============ 动作数据 ============ */
+var S="#E8B084",SK="#D89A6B",TP="#1FA07D",TD="#15795E",CO="#E8714A",SE="#15795E",
+    HR="#3E3228",HI="#F4A93B",MAT="#BBE3D4",WD="#C99A6A",WK="#A9794B",BR="#9AA3AD",
+    SHA="rgba(30,50,40,.10)";
+
+/* 每个 figure 为 viewBox 0 0 240 200 内部标记 */
+var EX=[
+/* ===== 晨间 ===== */
+{p:"morning",g:1,gt:"关节唤醒 · 5 min",nm:"肩胸舒展 + 猫牛式",en:"Shoulder Opener + Cat-Cow",
+ mus:"肩 · 胸椎 · 脊柱灵活",set:"约 5 分钟",rest:"热身",
+ steps:[["风车扩胸","站立，双臂像风车一样向后画大圈，配合呼吸充分扩胸，约 2 分钟。"],
+        ["猫式（呼气）","四足跪姿，低头含胸，背部像受惊的猫一样向上高高拱起。"],
+        ["牛式（吸气）","抬头挺胸、腹部下沉，脊柱形成向下的弧线；与猫式交替约 3 分钟。"]],
+ breath:"拱背时呼气、塌腰时吸气，呼吸带动脊柱。",
+ warn:"耸肩或用力过猛。全程缓慢，让肩膀远离耳朵。",
+ tip:"刚睡醒先做这个唤醒脊柱，再进入正式训练更安全。",
+ fig:'<ellipse cx="120" cy="166" rx="70" ry="5" fill="'+SHA+'"/>'+
+     '<path d="M150 114 L150 150" stroke="'+CO+'" stroke-width="20" stroke-linecap="round" fill="none"/>'+
+     '<path d="M150 150 L184 152" stroke="'+S+'" stroke-width="15" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="150" cy="150" r="10" fill="'+CO+'"/>'+
+     '<path d="M96 112 Q122 84 150 114" stroke="'+TP+'" stroke-width="24" stroke-linecap="round" fill="none"/>'+
+     '<path d="M101 108 Q122 84 145 110" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/>'+
+     '<path d="M96 112 L98 150" stroke="'+S+'" stroke-width="14" stroke-linecap="round" fill="none"/>'+
+     '<path d="M96 112 L86 124" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="80" cy="130" r="13" fill="'+S+'"/>'+
+     '<path d="M70 128 C70 116 92 116 92 128 C86 122 76 122 70 128 Z" fill="'+HR+'"/>'+
+     '<circle cx="74" cy="132" r="1.7" fill="'+HR+'"/>'},
+
+{p:"morning",g:2,gt:"核心与上肢维护 · 15 min · 组间歇 60s",nm:"凳上反屈伸",en:"Chair Tricep Dips",
+ mus:"肱三头肌 · 下胸肌",set:"3 组 × 10–12 次",rest:"组间歇 60s",
+ steps:[["预备","背对稳固的椅子/床沿，双手撑住边缘、指尖朝前；双腿前伸、脚跟着地。"],
+        ["下沉（吸气）","屈肘，让臀部贴着边缘垂直下沉，直到手肘约 90°。"],
+        ["推起（呼气）","肱三头肌发力，把身体笔直推回起点，顶端不要锁死手肘。"]],
+ breath:"下沉吸气，推起呼气，约 2–1–2 拍。",
+ warn:"手肘向两侧外扩。应始终指向正后方，减小肩关节压力。",
+ tip:"贴近椅沿垂直升降，臀部别往前跑；幅度以肩部无不适为度。",
+ fig:'<ellipse cx="120" cy="186" rx="84" ry="6" fill="'+SHA+'"/>'+
+     '<rect x="4" y="100" width="60" height="13" rx="3" fill="'+WD+'"/>'+
+     '<rect x="10" y="112" width="7" height="66" rx="2" fill="'+WK+'"/>'+
+     '<rect x="52" y="112" width="7" height="66" rx="2" fill="'+WK+'"/>'+
+     '<path d="M96 140 L156 140" stroke="'+CO+'" stroke-width="24" stroke-linecap="round" fill="none"/>'+
+     '<path d="M156 141 L156 178" stroke="'+S+'" stroke-width="17" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="156" cy="140" r="12" fill="'+CO+'"/>'+
+     '<rect x="146" y="176" width="38" height="12" rx="6" fill="'+SE+'"/>'+
+     '<circle cx="98" cy="140" r="15" fill="'+CO+'"/>'+
+     '<path d="M98 140 L90 96" stroke="'+TP+'" stroke-width="31" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="90" cy="96" r="12" fill="'+TP+'"/>'+
+     '<path d="M90 96 L68 128" stroke="'+S+'" stroke-width="14" stroke-linecap="round" fill="none"/>'+
+     '<path d="M68 128 L60 108" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="59" cy="107" r="7" fill="'+S+'"/>'+
+     '<path d="M86 99 L72 122" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".9"/>'+
+     '<path d="M97 88 L94 96" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="98" cy="74" r="15" fill="'+S+'"/>'+
+     '<circle cx="93" cy="76" r="3" fill="'+SK+'"/>'+
+     '<path d="M83 76 C81 56 115 56 114 76 C108 65 90 65 83 76 Z" fill="'+HR+'"/>'+
+     '<circle cx="105" cy="74" r="1.8" fill="'+HR+'"/>'},
+
+{p:"morning",g:2,gt:"核心与上肢维护 · 15 min · 组间歇 60s",nm:"下犬 ↔ 平板 交替",en:"Down-dog / Plank",
+ mus:"肩部稳定 · 核心抗旋 · 腘绳肌",set:"3 组 × 10 次",rest:"组间歇 60s",
+ steps:[["预备","标准手撑平板支撑，核心收紧，身体从头到脚成一条直线。"],
+        ["顶峰（下犬）","双手用力推地，臀部向天空顶起，成“倒 V”，脚跟尽量踩地。"],
+        ["复原","顶点停 1 秒，重心前移，平稳回到平板支撑位。"]],
+ breath:"顶髋时呼气，回落时吸气。",
+ warn:"塌腰或弓背。脊柱保持中立，发力靠肩与核心。",
+ tip:"下犬顶点能拉伸大腿后侧与肩背，是很好的动态拉伸。",
+ fig:'<ellipse cx="120" cy="184" rx="88" ry="6" fill="'+SHA+'"/>'+
+     '<path d="M58 178 L96 104" stroke="'+S+'" stroke-width="14" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="96" cy="104" r="10" fill="'+TP+'"/>'+
+     '<path d="M96 104 L120 88" stroke="'+TP+'" stroke-width="22" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="120" cy="88" r="11" fill="'+CO+'"/>'+
+     '<path d="M120 88 L150 134" stroke="'+CO+'" stroke-width="20" stroke-linecap="round" fill="none"/>'+
+     '<path d="M150 134 L182 174" stroke="'+S+'" stroke-width="16" stroke-linecap="round" fill="none"/>'+
+     '<rect x="172" y="172" width="26" height="11" rx="5" fill="'+SE+'"/>'+
+     '<path d="M125 92 L150 132" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/>'+
+     '<path d="M96 104 L91 116" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="88" cy="123" r="11" fill="'+S+'"/>'+
+     '<path d="M79 122 C77 110 99 110 98 122 C92 116 84 116 79 122 Z" fill="'+HR+'"/>'},
+
+{p:"morning",g:2,gt:"核心与上肢维护 · 15 min · 组间歇 60s",nm:"死虫式",en:"Deadbug",
+ mus:"深层腹横肌（不伤腰）",set:"3 组 × 16 次",rest:"左右交替",
+ steps:[["预备","仰卧，双臂指向天花板，双腿屈膝 90° 悬空；下背部紧贴地面、不留缝隙。"],
+        ["伸展","左臂与右腿同时缓慢向地面伸展，接近触地但不触地。"],
+        ["收回","靠腹部把手脚拉回，再换右臂与左腿。"]],
+ breath:"伸展时呼气，收回时吸气。",
+ warn:"下背部拱起离地。始终把腰压实地面，幅度宁小勿大。",
+ tip:"最安全的核心动作之一，腰部不适也能练。",
+ fig:'<ellipse cx="120" cy="170" rx="80" ry="5" fill="'+SHA+'"/>'+
+     '<rect x="40" y="158" width="150" height="6" rx="3" fill="'+MAT+'"/>'+
+     '<path d="M138 150 L96 150" stroke="'+TP+'" stroke-width="26" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="140" cy="150" r="13" fill="'+CO+'"/>'+
+     '<ellipse cx="118" cy="146" rx="13" ry="9" fill="'+HI+'" opacity=".6"/>'+
+     '<circle cx="80" cy="150" r="14" fill="'+S+'"/>'+
+     '<path d="M70 150 C68 132 94 132 92 150 Z" fill="'+HR+'"/>'+
+     '<path d="M98 146 L100 110" stroke="'+S+'" stroke-width="11" stroke-linecap="round" fill="none"/>'+
+     '<path d="M96 150 L66 134" stroke="'+S+'" stroke-width="10" stroke-linecap="round" fill="none"/>'+
+     '<path d="M140 150 L150 116" stroke="'+CO+'" stroke-width="17" stroke-linecap="round" fill="none"/>'+
+     '<path d="M150 116 L176 116" stroke="'+S+'" stroke-width="13" stroke-linecap="round" fill="none"/>'+
+     '<path d="M140 150 L186 144" stroke="'+CO+'" stroke-width="16" stroke-linecap="round" fill="none"/>'+
+     '<path d="M186 144 L204 140" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'},
+
+{p:"morning",g:3,gt:"平缓收尾 · 10 min",nm:"站姿对侧提膝",en:"Standing Knee Raise",
+ mus:"腹斜肌 · 平缓降心率",set:"1 分钟做 / 30 秒休",rest:"循环",
+ steps:[["预备","站立，双手轻轻抱头，挺胸收腹。"],
+        ["提膝转体","抬起左膝，同时扭转躯干，用右肘去触碰左膝。"],
+        ["交替","左右交替，保持类似散步的平缓节奏，不需要跳跃。"]],
+ breath:"触膝时呼气，还原时吸气。",
+ warn:"用手把头往下掰。靠腹部转体，手只是轻扶。",
+ tip:"持续扭转榨干腹侧，同时平缓地把心率降下来收尾。",
+ fig:'<ellipse cx="116" cy="186" rx="42" ry="5" fill="'+SHA+'"/>'+
+     '<path d="M116 120 L116 150" stroke="'+CO+'" stroke-width="20" stroke-linecap="round" fill="none"/>'+
+     '<path d="M116 150 L116 180" stroke="'+S+'" stroke-width="16" stroke-linecap="round" fill="none"/>'+
+     '<rect x="104" y="178" width="28" height="10" rx="5" fill="'+SE+'"/>'+
+     '<path d="M116 120 L96 130" stroke="'+CO+'" stroke-width="18" stroke-linecap="round" fill="none"/>'+
+     '<path d="M96 130 L104 152" stroke="'+S+'" stroke-width="14" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="116" cy="120" r="14" fill="'+CO+'"/>'+
+     '<path d="M118 120 L122 74" stroke="'+TP+'" stroke-width="28" stroke-linecap="round" fill="none"/>'+
+     '<path d="M124 96 L114 116" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".8"/>'+
+     '<path d="M120 76 L140 82" stroke="'+S+'" stroke-width="11" stroke-linecap="round" fill="none"/>'+
+     '<path d="M140 82 L128 56" stroke="'+S+'" stroke-width="11" stroke-linecap="round" fill="none"/>'+
+     '<path d="M120 78 L100 94" stroke="'+S+'" stroke-width="11" stroke-linecap="round" fill="none"/>'+
+     '<path d="M100 94 L110 116" stroke="'+S+'" stroke-width="11" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="124" cy="56" r="14" fill="'+S+'"/>'+
+     '<path d="M114 54 C112 36 138 36 137 56 C130 46 120 46 114 54 Z" fill="'+HR+'"/>'+
+     '<circle cx="131" cy="56" r="1.8" fill="'+HR+'"/>'},
+
+/* ===== 晚间 ===== */
+{p:"evening",g:1,gt:"静态激活 · 2 min",nm:"仰卧抱膝",en:"Supine Knee Hug",
+ mus:"下背部放松（久坐缓解）",set:"约 2 分钟",rest:"激活",
+ steps:[["抱膝","仰卧，双手抱住双膝，尽量贴近胸口。"],
+        ["晃动","左右轻轻晃动身体，按摩下背部。"]],
+ breath:"缓慢深呼吸，呼气时把膝盖再抱近一点。",
+ warn:"抬头用力。头部放松贴地，靠手臂把膝带向胸口。",
+ tip:"释放白天久坐的下背紧张，作为晚间训练的开场。",
+ fig:'<ellipse cx="118" cy="168" rx="72" ry="5" fill="'+SHA+'"/>'+
+     '<rect x="44" y="156" width="148" height="6" rx="3" fill="'+MAT+'"/>'+
+     '<path d="M132 150 L92 150" stroke="'+TP+'" stroke-width="24" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="134" cy="148" r="12" fill="'+CO+'"/>'+
+     '<circle cx="78" cy="150" r="13" fill="'+S+'"/>'+
+     '<path d="M68 150 C66 134 90 134 89 150 Z" fill="'+HR+'"/>'+
+     '<path d="M134 148 L118 118" stroke="'+CO+'" stroke-width="18" stroke-linecap="round" fill="none"/>'+
+     '<path d="M118 118 L94 130" stroke="'+S+'" stroke-width="14" stroke-linecap="round" fill="none"/>'+
+     '<path d="M132 150 L112 126" stroke="'+CO+'" stroke-width="17" stroke-linecap="round" fill="none"/>'+
+     '<path d="M112 126 L90 138" stroke="'+S+'" stroke-width="13" stroke-linecap="round" fill="none"/>'+
+     '<path d="M92 150 L112 124" stroke="'+S+'" stroke-width="10" stroke-linecap="round" fill="none"/>'+
+     '<path d="M112 124 L100 132" stroke="'+S+'" stroke-width="9" stroke-linecap="round" fill="none"/>'},
+
+{p:"evening",g:2,gt:"背部与后侧链 · 15 min · 组间歇 60–90s",nm:"引体向上",en:"Pull-ups",
+ mus:"背阔肌 · 肱二头肌",set:"4 组 × (极限 − 2)",rest:"组间歇 90s",
+ steps:[["悬挂","正握单杠，与肩同宽或略宽，先沉肩、激活肩胛。"],
+        ["拉起","用背部带动，把胸口拉向杠，下巴过杠。"],
+        ["下放","控制速度回到悬挂，不耸肩、不甩动身体。"]],
+ breath:"拉起时呼气，下放时吸气。",
+ warn:"靠惯性甩身体冲数量。采用“留有余地”练法：最多能拉 8 个就每组只拉 6 个。",
+ tip:"动作质量优先于力竭，宁可少做几个也别变形。",
+ fig:'<rect x="36" y="26" width="168" height="8" rx="4" fill="'+BR+'"/>'+
+     '<rect x="44" y="10" width="6" height="18" rx="3" fill="'+BR+'"/>'+
+     '<rect x="190" y="10" width="6" height="18" rx="3" fill="'+BR+'"/>'+
+     '<path d="M104 36 L112 92" stroke="'+S+'" stroke-width="13" stroke-linecap="round" fill="none"/>'+
+     '<path d="M136 36 L128 92" stroke="'+S+'" stroke-width="13" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="112" cy="92" r="11" fill="'+TP+'"/>'+
+     '<circle cx="128" cy="92" r="11" fill="'+TP+'"/>'+
+     '<path d="M114 92 L120 142" stroke="'+TP+'" stroke-width="30" stroke-linecap="round" fill="none"/>'+
+     '<path d="M105 100 L110 124" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/>'+
+     '<path d="M135 100 L130 124" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/>'+
+     '<circle cx="120" cy="74" r="14" fill="'+S+'"/>'+
+     '<path d="M106 72 C104 54 134 54 134 72 C127 62 113 62 106 72 Z" fill="'+HR+'"/>'+
+     '<circle cx="120" cy="140" r="13" fill="'+CO+'"/>'+
+     '<path d="M120 142 L120 174" stroke="'+CO+'" stroke-width="19" stroke-linecap="round" fill="none"/>'+
+     '<path d="M120 174 L112 196" stroke="'+S+'" stroke-width="15" stroke-linecap="round" fill="none"/>'+
+     '<path d="M120 174 L130 196" stroke="'+S+'" stroke-width="15" stroke-linecap="round" fill="none"/>'},
+
+{p:"evening",g:2,gt:"背部与后侧链 · 15 min · 组间歇 60–90s",nm:"单腿仰卧臀桥",en:"Single-leg Glute Bridge",
+ mus:"臀大肌 · 腘绳肌（无深蹲练腿）",set:"左右各 3 组 × 12 次",rest:"组间歇 60s",
+ steps:[["预备","仰卧，单腿屈膝踩地，另一条腿伸直悬空。"],
+        ["发力","用踩地脚的脚跟发力，把骨盆顶起，肩-髋-膝成一条直线。"],
+        ["控制","顶点夹紧臀部停 1 秒，再缓慢下放。"]],
+ breath:"顶髋时呼气，下放时吸气。",
+ warn:"靠腰部发力顶起。顶点应夹臀，避免下背代偿。",
+ tip:"感受臀部主导发力；脚跟踩实、脚尖可微微翘起。",
+ fig:'<ellipse cx="120" cy="190" rx="84" ry="5" fill="'+SHA+'"/>'+
+     '<rect x="40" y="180" width="120" height="6" rx="3" fill="'+MAT+'"/>'+
+     '<circle cx="54" cy="168" r="13" fill="'+S+'"/>'+
+     '<path d="M44 168 C42 152 66 152 65 168 Z" fill="'+HR+'"/>'+
+     '<path d="M74 166 L140 128" stroke="'+TP+'" stroke-width="24" stroke-linecap="round" fill="none"/>'+
+     '<path d="M88 158 L120 140" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".8"/>'+
+     '<circle cx="142" cy="126" r="12" fill="'+CO+'"/>'+
+     '<path d="M142 126 L166 152" stroke="'+CO+'" stroke-width="18" stroke-linecap="round" fill="none"/>'+
+     '<path d="M166 152 L168 180" stroke="'+S+'" stroke-width="15" stroke-linecap="round" fill="none"/>'+
+     '<rect x="158" y="178" width="30" height="9" rx="4" fill="'+SE+'"/>'+
+     '<path d="M142 128 L180 98" stroke="'+CO+'" stroke-width="17" stroke-linecap="round" fill="none"/>'+
+     '<path d="M180 98 L198 84" stroke="'+S+'" stroke-width="13" stroke-linecap="round" fill="none"/>'+
+     '<path d="M74 166 L96 176" stroke="'+S+'" stroke-width="10" stroke-linecap="round" fill="none"/>'},
+
+{p:"evening",g:2,gt:"背部与后侧链 · 15 min · 组间歇 60–90s",nm:"超人式",en:"Superman Holds",
+ mus:"竖脊肌 · 下背部",set:"3 组 × 20–30 秒",rest:"保持",
+ steps:[["预备","俯卧，双手向前伸直，双腿向后伸直。"],
+        ["起飞","腰背发力，把手脚同时抬离地面，只有腹部触地。"],
+        ["保持","在最高点稳定保持 20–30 秒，均匀呼吸。"]],
+ breath:"保持时均匀呼吸，不要憋气。",
+ warn:"猛地甩起或仰头过度。颈部跟随脊柱，视线朝下前方。",
+ tip:"抬起幅度不必很大，稳定收紧后链比抬得高更重要。",
+ fig:'<ellipse cx="124" cy="176" rx="90" ry="6" fill="'+SHA+'"/>'+
+     '<path d="M96 134 L150 140" stroke="'+TP+'" stroke-width="24" stroke-linecap="round" fill="none"/>'+
+     '<path d="M100 130 Q124 120 148 136" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85"/>'+
+     '<circle cx="152" cy="140" r="12" fill="'+CO+'"/>'+
+     '<path d="M150 140 L178 128" stroke="'+CO+'" stroke-width="18" stroke-linecap="round" fill="none"/>'+
+     '<path d="M178 128 L200 118" stroke="'+S+'" stroke-width="15" stroke-linecap="round" fill="none"/>'+
+     '<rect x="194" y="114" width="20" height="10" rx="5" fill="'+SE+'" transform="rotate(-24 204 119)"/>'+
+     '<path d="M96 134 L60 116" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'+
+     '<path d="M96 134 L86 126" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="76" cy="120" r="13" fill="'+S+'"/>'+
+     '<path d="M66 116 C66 102 88 100 90 114 C84 110 74 110 66 116 Z" fill="'+HR+'"/>'+
+     '<circle cx="68" cy="121" r="1.7" fill="'+HR+'"/>'},
+
+{p:"evening",g:3,gt:"舒缓拉伸 · 3 min",nm:"婴儿式",en:"Child's Pose",
+ mus:"背部舒展 · 整体放松",set:"约 3 分钟",rest:"收尾",
+ steps:[["跪坐前俯","双膝微开跪坐在脚后跟上，身体向前俯卧。"],
+        ["延伸","手臂尽量向前延伸，额头贴地。"]],
+ breath:"配合深呼吸，呼气时感受整条背被拉开。",
+ warn:"含胸塌肩。手臂主动向前延伸，臀部往脚跟坐。",
+ tip:"结束一天训练，在这里停留 1–2 分钟慢慢呼吸。",
+ fig:'<ellipse cx="120" cy="176" rx="86" ry="6" fill="'+SHA+'"/>'+
+     '<rect x="30" y="166" width="172" height="6" rx="3" fill="'+MAT+'"/>'+
+     '<path d="M150 138 L150 152" stroke="'+CO+'" stroke-width="20" stroke-linecap="round" fill="none"/>'+
+     '<path d="M150 152 L186 158" stroke="'+S+'" stroke-width="15" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="150" cy="138" r="14" fill="'+CO+'"/>'+
+     '<path d="M150 138 L104 150" stroke="'+TP+'" stroke-width="24" stroke-linecap="round" fill="none"/>'+
+     '<path d="M146 144 L112 152" stroke="'+HI+'" stroke-width="5" stroke-linecap="round" fill="none" opacity=".8"/>'+
+     '<path d="M104 150 L96 158" stroke="'+S+'" stroke-width="12" stroke-linecap="round" fill="none"/>'+
+     '<circle cx="89" cy="160" r="11" fill="'+S+'"/>'+
+     '<path d="M80 162 C78 150 100 150 99 161 Z" fill="'+HR+'"/>'+
+     '<path d="M104 150 L58 164" stroke="'+S+'" stroke-width="11" stroke-linecap="round" fill="none"/>'}
+];
+
+/* ============ 渲染 ============ */
+var ICON_CHK='<span class="ic">✓</span>';
+function dayKey(){var d=new Date();return 'routine_'+d.getFullYear()+(d.getMonth()+1)+d.getDate();}
+function getDone(){try{return JSON.parse(localStorage.getItem(dayKey())||'[]');}catch(e){return [];}}
+function setDone(a){try{localStorage.setItem(dayKey(),JSON.stringify(a));}catch(e){}}
+
+function card(ex,idx){
+  var done=getDone().indexOf(ex.nm)>=0;
+  return '<div class="card'+(done?' done':'')+'" id="card-'+idx+'">'+
+    '<div class="head" onclick="toggleCard('+idx+',event)">'+
+      '<div class="thumb"><svg viewBox="0 0 240 200">'+ex.fig+'</svg></div>'+
+      '<div class="title"><div class="nm">'+ex.nm+' <span class="en">'+ex.en+'</span></div>'+
+        '<div class="tags"><span class="tag t-mus">🎯 '+ex.mus+'</span>'+
+        '<span class="tag t-set">🔁 '+ex.set+'</span>'+
+        '<span class="tag t-rest">⏱ '+ex.rest+'</span></div></div>'+
+      '<div class="right"><label class="chk" onclick="event.stopPropagation()">'+
+        '<input type="checkbox" '+(done?'checked':'')+' onchange="toggleDone(\''+esc(ex.nm)+'\',this.checked)">'+
+        '<span class="box">'+ICON_CHK+'</span></label>'+
+        '<span class="chev">⌄</span></div>'+
+    '</div>'+
+    '<div class="body"><div class="body-in"><div class="detail">'+
+      '<div class="fig"><svg viewBox="0 0 240 200">'+ex.fig+'</svg></div>'+
+      '<div class="info">'+
+        '<ol class="steps">'+ex.steps.map(function(s,si){return '<li><span class="sn">'+(si+1)+'</span><p><b>'+s[0]+'：</b>'+s[1]+'</p></li>';}).join('')+'</ol>'+
+        '<div class="breath"><span class="ic">🫁</span>呼吸节奏：'+ex.breath+'</div>'+
+        '<div class="notes"><div class="note warn"><div class="h"><span class="ic">⚠️</span>常见错误</div><p>'+ex.warn+'</p></div>'+
+        '<div class="note tip"><div class="h"><span class="ic">💡</span>小贴士</div><p>'+ex.tip+'</p></div></div>'+
+      '</div></div></div></div>'+
+  '</div>';
+}
+function esc(s){return s.replace(/'/g,"\\'");}
+
+function renderPeriod(p){
+  var list=EX.filter(function(e){return e.p===p;});
+  var html='',lastG=null;
+  list.forEach(function(ex){
+    var gi=EX.indexOf(ex);
+    if(ex.g!==lastG){
+      html+='<div class="grp"><div class="n">'+ex.g+'</div><h2>'+groupName(p,ex.g)+'</h2><span class="t">'+ex.gt.split(' · ').slice(1).join(' · ')+'</span></div>';
+      lastG=ex.g;
+    }
+    html+=card(ex,gi);
+  });
+  document.getElementById('period-'+p).innerHTML=html;
+}
+function groupName(p,g){
+  var m={1:"关节唤醒",2:"核心与上肢维护",3:"平缓收尾"},e={1:"静态激活",2:"背部与下肢后侧链",3:"舒缓拉伸"};
+  return (p==='morning'?m:e)[g];
+}
+
+/* ============ 交互 ============ */
+var curP='morning';
+function setPeriod(p){
+  curP=p;
+  document.getElementById('seg-m').classList.toggle('on',p==='morning');
+  document.getElementById('seg-e').classList.toggle('on',p==='evening');
+  document.getElementById('period-morning').classList.toggle('show',p==='morning');
+  document.getElementById('period-evening').classList.toggle('show',p==='evening');
+  document.body.classList.toggle('evening',p==='evening');
+  document.getElementById('hero-emoji').textContent=p==='evening'?'🌙':'🌴';
+  buildJump();updateProg();openFirst();allOpen=false;syncAllBtn();
+}
+function buildJump(){
+  var sel=document.getElementById('jump');
+  var list=EX.map(function(e,i){return {e:e,i:i};}).filter(function(o){return o.e.p===curP;});
+  sel.innerHTML='<option value="">— 选择动作 —</option>'+list.map(function(o,k){
+    return '<option value="'+o.i+'">'+(k+1)+' · '+o.e.nm+'</option>';}).join('');
+}
+function jumpTo(i){
+  if(i==='')return;
+  var c=document.getElementById('card-'+i);
+  if(!c)return;
+  c.classList.add('open');
+  c.scrollIntoView({behavior:'smooth',block:'center'});
+  c.animate?c.animate([{boxShadow:'0 0 0 3px var(--accent)'},{boxShadow:'var(--shadow)'}],{duration:1100}):0;
+}
+function toggleCard(i,e){
+  document.getElementById('card-'+i).classList.toggle('open');
+}
+function toggleDone(nm,on){
+  var a=getDone();var k=a.indexOf(nm);
+  if(on&&k<0)a.push(nm); if(!on&&k>=0)a.splice(k,1);
+  setDone(a);
+  // 更新卡片 done 边框
+  EX.forEach(function(ex,i){var c=document.getElementById('card-'+i);if(c)c.classList.toggle('done',getDone().indexOf(ex.nm)>=0);});
+  updateProg();
+}
+function updateProg(){
+  var list=EX.filter(function(e){return e.p===curP;});
+  var done=getDone();
+  var n=list.filter(function(e){return done.indexOf(e.nm)>=0;}).length;
+  var t=list.length, pct=t?Math.round(n/t*100):0;
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=n+' / '+t;
+  document.getElementById('prog-lab').textContent=(curP==='morning'?'☀️ 晨间打卡':'🌙 晚间打卡');
+}
+function openFirst(){
+  var first=EX.map(function(e,i){return{e:e,i:i};}).filter(function(o){return o.e.p===curP;})[0];
+  if(first)document.getElementById('card-'+first.i).classList.add('open');
+}
+var allOpen=false;
+function toggleAll(){
+  allOpen=!allOpen;
+  EX.forEach(function(e,i){if(e.p===curP){var c=document.getElementById('card-'+i);if(c)c.classList.toggle('open',allOpen);}});
+  syncAllBtn();
+}
+function syncAllBtn(){document.getElementById('btn-all').textContent=allOpen?'⊖ 全部收起':'⊕ 全部展开';}
+function resetDay(){
+  if(!confirm('确定清空今天的打卡记录吗？'))return;
+  setDone([]);
+  EX.forEach(function(e,i){var c=document.getElementById('card-'+i);if(c){c.classList.remove('done');var cb=c.querySelector('input');if(cb)cb.checked=false;}});
+  updateProg();
+}
+
+/* init */
+renderPeriod('morning');renderPeriod('evening');
+buildJump();updateProg();openFirst();
+</script>
+</body>
+</html>

@@ -1,114 +1,43 @@
+"""
+夏日室内专属训练计划 —— Streamlit 外壳
+真正的页面在同目录的 routine.html（自定义 HTML/CSS/SVG/JS）。
+本文件只负责：设置页面、隐藏 Streamlit 默认 UI、整页嵌入 routine.html。
+部署：把 app_routine.py 与 routine.html 一起推到 GitHub 仓库即可。
+"""
+from pathlib import Path
 import streamlit as st
+import streamlit.components.v1 as components
 
-# 1. 页面基础设置 (增加页面宽度以提升视觉体验)
-st.set_page_config(page_title="夏日特供 | 室内维护训练表", page_icon="🌴", layout="centered")
+st.set_page_config(
+    page_title="夏日室内专属计划",
+    page_icon="🌴",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
-# 2. 网站主标题与核心阶段目标
-st.title("🌴 夏日室内专属计划")
-st.subheader("无深蹲 · 无俯卧撑 · 清爽维护")
-st.markdown("""
-**🎯 核心策略：** 规避夏日暴汗与紫外线，总强度精准下调 20%-30%。
-**💡 执行原则：** 保护特定关节，打破神经适应，用更温和的方式维持现有肌肉张力。
-""")
-st.divider()
+# 隐藏 Streamlit 默认顶栏/菜单/页脚，并清除页面留白，让自定义页面铺满
+st.markdown(
+    """
+    <style>
+      #MainMenu, footer {visibility: hidden;}
+      [data-testid="stHeader"] {display: none;}
+      [data-testid="stToolbar"] {display: none;}
+      .stApp {background: #FCF8F0;}
+      .block-container,
+      [data-testid="stAppViewBlockContainer"],
+      [data-testid="stMainBlockContainer"] {
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      [data-testid="stVerticalBlock"] {gap: 0 !important;}
+      iframe {display: block; border: 0;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
-# 3. 创建早晚两个大标签页
-tab_morning, tab_evening = st.tabs(["☀️ 晨间：上肢稳定与核心", "🌙 晚间：拉力与后侧链"])
+html_path = Path(__file__).parent / "routine.html"
+html = html_path.read_text(encoding="utf-8")
 
-# ==========================================
-# ☀️ 晨间方案
-# ==========================================
-with tab_morning:
-    st.info("⏱️ **总耗时：约 30分钟** | 主打温和唤醒与核心雕刻，不出大汗。")
-    
-    st.header("1. 关节唤醒 (5 min)")
-    with st.expander("🔄 肩部与胸椎舒展 & 猫牛式伸展", expanded=False):
-        st.markdown("""
-        **【肩部舒展】**
-        🧍 站立姿势，双臂像大风车一样向后缓慢画大圈，配合呼吸扩胸。持续 2 分钟。
-        
-        **【猫牛式 (Cat-Cow)】**
-        🐈 **猫式**：四足跪姿，呼气时低头含胸，背部像生气的猫一样向上高高拱起。
-        🐄 **牛式**：吸气时抬头挺胸，腹部向下沉，脊柱形成向下的弧线。
-        交替进行，持续 3 分钟，彻底舒展睡眠后的脊柱。
-        """)
-
-    st.header("2. 核心与上肢维护 (15 min)")
-    st.caption("提示：每组之间休息 60 秒。")
-    
-    with st.expander("🪑 凳上反屈伸 (Chair Tricep Dips) | 3组 x 10-12次", expanded=False):
-        st.success("**🎯 目标肌肉：肱三头肌、下胸肌 (完美替代俯卧撑)**")
-        st.markdown("""
-        * **预备 ⑁**：背对床沿或稳固的椅子，双手在身后撑住边缘，双腿自然伸直或微曲脚跟着地。
-        * **下沉 ⬇️**：缓慢屈肘，让臀部垂直贴着床沿下沉，直到手肘呈 90 度。
-        * **推起 ⬆️**：三头肌发力，将身体笔直推回初始位置。
-        > ⚠️ **注意**：手肘不要向两侧外扩，尽量向后指。
-        """)
-
-    with st.expander("⛰️ 下犬式/平板支撑交替 | 3组 x 10次", expanded=False):
-        st.success("**🎯 目标肌肉：肩部稳定、核心抗旋转、大腿后侧拉伸**")
-        st.markdown("""
-        * **预备 ➖**：呈标准的手撑平板支撑姿势，核心收紧。
-        * **顶峰 ⛰️**：双手用力推地，臀部向天空最高处顶起，身体呈“倒 V 型”，脚跟尽量踩实地面。
-        * **复原 ➡️**：在最高点停顿 1 秒，缓慢将重心前移，平稳回到平板支撑位。
-        """)
-
-    with st.expander("🪲 死虫式 (Deadbug) | 3组 x 16次 (左右交替)", expanded=False):
-        st.success("**🎯 目标肌肉：深层腹横肌 (绝对不伤腰的核心神技)**")
-        st.markdown("""
-        * **预备 🛌**：仰卧，双臂垂直指向天花板，双腿屈膝 90 度悬空。**下背部死死贴住地面，不能有空隙！**
-        * **伸展 ↘️**：缓慢将 **左臂** 和 **右腿** 同时向地面伸展，直到几乎触地（但不贴地）。
-        * **收回 ↖️**：靠腹部力量将手脚拉回，换 **右臂** 和 **左腿** 执行。
-        """)
-
-    st.header("3. 平缓收尾 (10 min)")
-    with st.expander("🚶‍♂️ 站姿对侧提膝 | 1分钟做/30秒休，循环", expanded=False):
-        st.markdown("""
-        * **动作 🔀**：保持站立，双手抱头。抬起左膝的同时，扭转躯干用右侧手肘去触碰左膝。左右交替。
-        * **节奏 🎵**：保持类似散步的平缓节奏，**不需要跳跃**。通过持续的扭转榨干腹部侧面的最后一点力量，同时平缓降低心率。
-        """)
-
-# ==========================================
-# 🌙 晚间方案
-# ==========================================
-with tab_evening:
-    st.info("⏱️ **总耗时：约 20分钟** | 重心转移至背部与大腿后侧链，平衡久坐体态。")
-
-    st.header("1. 静态激活 (2 min)")
-    with st.expander("🧘‍♂️ 仰卧抱膝", expanded=False):
-        st.markdown("""
-        * **动作**：躺在垫子上，双手抱住双膝尽量贴近胸口，左右微微晃动身体。
-        * **目的**：彻底放松白天久坐带来的下背部紧张感。
-        """)
-
-    st.header("2. 背部与下肢后侧链 (15 min)")
-    st.caption("提示：每组之间充分休息 60-90 秒。")
-
-    with st.expander("💪 常规引体向上 (Pull-ups) | 4组 x (极限次数-2)", expanded=False):
-        st.warning("**🎯 目标肌肉：背阔肌、二头肌 (维持背部维度的绝对主力)**")
-        st.markdown("""
-        * **执行 ⬆️**：恢复正常的拉起和下放速度即可，不需要极度慢放。
-        * **容量 🔋**：采用“留有余地”练法。如果你一口气最多能拉 8 个，那么每组只拉 6 个就下来。保持良好的动作质量比力竭更重要。
-        """)
-
-    with st.expander("🌉 单腿仰卧臀桥 | 左右各 3组 x 12次", expanded=False):
-        st.warning("**🎯 目标肌肉：臀大肌、腘绳肌 (无深蹲练腿法)**")
-        st.markdown("""
-        * **预备 🛌**：躺在垫子上，**单腿**屈膝踩地，另一条腿悬空伸直。
-        * **发力 ⬆️**：用踩地的那只脚（脚跟位置）发力，将骨盆向上顶起，直到肩膀、臀部、膝盖呈一条直线。
-        * **控制 ⬇️**：在顶峰夹紧臀部停顿 1 秒，然后缓慢下放。
-        """)
-
-    with st.expander("🦸‍♂️ 超人式 (Superman Holds) | 3组 x 20-30秒保持", expanded=False):
-        st.warning("**🎯 目标肌肉：竖脊肌、下背部**")
-        st.markdown("""
-        * **动作 ✈️**：趴在垫子上，面朝下。双手向前伸直，双腿向后伸直。
-        * **起飞 🚀**：腰背发力，将双手和双脚同时向上抬起悬空，只有腹部接触地面。在最高点保持 20-30 秒。
-        """)
-
-    st.header("3. 舒缓拉伸 (3 min)")
-    with st.expander("🙇‍♂️ 婴儿式 (Child's Pose)", expanded=False):
-        st.markdown("""
-        * **动作**：双膝微开跪坐在脚后跟上，身体向前俯卧，手臂尽量向前延伸，额头贴地。
-        * **目的**：伴随深呼吸，感受整个背部被彻底拉开，结束一天的训练。
-        """)
+# 整页嵌入；高度给足，内部自适应滚动
+components.html(html, height=1000, scrolling=True)
